@@ -42,4 +42,10 @@ public class CategoryResources {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
