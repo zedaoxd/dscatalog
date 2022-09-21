@@ -100,3 +100,37 @@
         margin-bottom: 47px;
     }
 }
+
+@media (min-width: 1200px) {
+    .home-card {
+        flex-direction: row;
+        justify-content: space-around;
+        padding: calc((85vh - 500px) / 2) 0;
+    }
+
+    .home-content-container {
+        height: 480px;
+        width: 700px;
+        padding: 20px;
+        align-items: flex-start;
+        text-align: left;
+        flex-flow: wrap;
+        align-content: space-between;
+    }
+
+    .home-image-container {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .home-image-container svg {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .home-image-container svg {
+        width: 480px;
+    }
+}
