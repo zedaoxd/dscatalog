@@ -4,7 +4,7 @@ const ProductPrice = () => {
   return (
     <div className="product-price-container">
       <span>R$</span>
-      <h3>2345.69</h3>
+      <h3>2799.99</h3>
     </div>
   );
 };
