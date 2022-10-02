@@ -5,7 +5,6 @@ import com.dscatalog.entities.Role;
 import java.io.Serializable;
 import java.util.Objects;
 
-
 public class RoleDTO implements Serializable {
     private Long id;
     private String authority;

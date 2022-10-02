@@ -2,8 +2,6 @@ package com.dscatalog.dto;
 
 import com.dscatalog.entities.Category;
 import com.dscatalog.entities.Product;
-import lombok.AccessLevel;
-import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
@@ -28,7 +26,7 @@ public class ProductDTO implements Serializable {
     private String imgUrl;
     @PastOrPresent(message = "A data do produto não pode ser futura")
     private Instant date;
-    @Setter(AccessLevel.NONE)
+
     List<CategoryDTO> categories = new ArrayList<>();
 
     public ProductDTO(Long id, String name, String description, Double price, String imgUrl, Instant date) {
