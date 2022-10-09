@@ -20,5 +20,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "AND (UPPER(prod.name) LIKE UPPER(CONCAT('%', :name, '%')))")
     Page<Product> find(List<Category> categories, String name, Pageable pageable);
 
-    Page<Product> findDistinctByCategoriesContainingAndNameContains(Category category, String name, Pageable pageable);
+    @Query(value = "SELECT prod FROM Product prod JOIN FETCH prod.categories WHERE prod IN :products")
+    List<Product> findProductWithCategories(List<Product> products);
 }
