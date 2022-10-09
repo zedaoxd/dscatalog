@@ -3,10 +3,7 @@ package com.dscatalog.dto;
 import com.dscatalog.entities.Category;
 import com.dscatalog.entities.Product;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -15,19 +12,30 @@ import java.util.Objects;
 import java.util.Set;
 
 public class ProductDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Long id;
-    @Size(min = 5, max = 60, message = "Nome deve ter entre 5 e 60 caracteres")
-    @NotBlank(message = "[Nome] não pode estar vazio")
+
+    @Size(min = 5, max = 60, message = "Deve ter entre 5 e 60 caracteres")
+    @NotBlank(message = "Campo requerido")
     private String name;
+
+    @NotBlank(message = "Campo requerido")
     private String description;
+
     @Positive(message = "Preço deve ser um valor positivo")
     private Double price;
+
     private String imgUrl;
+
     @PastOrPresent(message = "A data do produto não pode ser futura")
     private Instant date;
 
-    List<CategoryDTO> categories = new ArrayList<>();
+    @NotEmpty(message = "Produto sem categoria não é permitido")
+    private List<CategoryDTO> categories = new ArrayList<>();
+
+    public ProductDTO() {
+    }
 
     public ProductDTO(Long id, String name, String description, Double price, String imgUrl, Instant date) {
         this.id = id;
@@ -39,12 +47,17 @@ public class ProductDTO implements Serializable {
     }
 
     public ProductDTO(Product entity) {
-        this(entity.getId(), entity.getName(), entity.getDescription(),entity.getPrice(),entity.getImgUrl(), entity.getDate());
+        this.id = entity.getId();
+        this.name = entity.getName();
+        this.description = entity.getDescription();
+        this.price = entity.getPrice();
+        this.imgUrl = entity.getImgUrl();
+        this.date = entity.getDate();
     }
 
     public ProductDTO(Product entity, Set<Category> categories) {
         this(entity);
-        categories.forEach(c -> this.categories.add(new CategoryDTO(c)));
+        categories.forEach(cat -> this.categories.add(new CategoryDTO(cat)));
     }
 
     public Long getId() {
@@ -99,16 +112,7 @@ public class ProductDTO implements Serializable {
         return categories;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductDTO that = (ProductDTO) o;
-        return id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void setCategories(List<CategoryDTO> categories) {
+        this.categories = categories;
     }
 }
