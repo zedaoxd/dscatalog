@@ -54,7 +54,7 @@ public class ProductResourceTests {
         productDTO = Factory.createProductDTO();
         page = new PageImpl<>(List.of(productDTO));
 
-        when(service.findAllPage(any())).thenReturn(page);
+        when(service.findAllPage(any(), 0L)).thenReturn(page);
         when(service.findById(existingId)).thenReturn(productDTO);
         when(service.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
         when(service.update(eq(existingId), any())).thenReturn(productDTO);

@@ -5,6 +5,8 @@ import com.dscatalog.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,8 +22,11 @@ public class ProductResource {
     private ProductService service;
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAllPage(Pageable pageable) {
-        return ResponseEntity.ok().body(service.findAllPage(pageable));
+    public ResponseEntity<Page<ProductDTO>> findAllPage(
+            @PageableDefault(page = 0, size = 12, sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
+            @RequestParam(value = "categoryId", defaultValue = "0") Long categoryId,
+            @RequestParam(value = "name", defaultValue = "") String name) {
+        return ResponseEntity.ok().body(service.findAllPage(pageable, categoryId, name.trim()));
     }
 
     @GetMapping(value = "/{id}")
