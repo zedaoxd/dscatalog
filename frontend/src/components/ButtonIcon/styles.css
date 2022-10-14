@@ -20,6 +20,7 @@
     width: 50px;
     border-radius: 0 10px 10px 0;
     background-color: #33579C;
+    color: #FFF;
 }
 
 @media (min-width: 576px) {
