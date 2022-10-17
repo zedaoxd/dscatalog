@@ -2,7 +2,7 @@ import ButtonIcon from 'components/ButtonIcon';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { getAuthData, requestBackendLogin, saveAuthData } from 'utils/requests';
+import { requestBackendLogin, saveAuthData } from 'utils/requests';
 import './styles.css';
 
 
@@ -20,8 +20,6 @@ const Login = () => {
         requestBackendLogin(formData)
             .then(response => {
                 saveAuthData(response.data);
-                const token = getAuthData().access_token;
-                console.log('Token gerado: ' + token);
                 setHasError(false);
             })
             .catch(error => setHasError(true));

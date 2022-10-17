@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
-import axios, { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 
 import './styles.css';
-import { BASE_URL } from 'utils/requests';
+import { BASE_URL, requestBackend } from 'utils/requests';
 import CardLoader from './CardLoader';
 
 const Catalog = () => {
@@ -19,7 +19,6 @@ const Catalog = () => {
     const param : AxiosRequestConfig = {
       method: 'GET',
       url: `/products`,
-      baseURL: BASE_URL,
       params: {
         page: 0,
         size: 12,
@@ -28,7 +27,7 @@ const Catalog = () => {
     };
 
     setIsLoading(true);
-    axios(param)
+    requestBackend(param)
       .then(response => setPage(response.data))
       .finally(() => setIsLoading(false))
   }, []);

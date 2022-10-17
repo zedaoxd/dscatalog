@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 
 type LoginResponse = {
@@ -20,7 +20,7 @@ const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? 'dscatalog123';
 type LoginData = {
     username: string;
     password: string;
-}
+};
 
 export const requestBackendLogin = (loginData: LoginData) => {
     const headers = {
@@ -39,14 +39,30 @@ export const requestBackendLogin = (loginData: LoginData) => {
         url: '/oauth/token',
         data: data,
         headers: headers
-    })
-}
+    });
+};
+
+
+export const requestBackend = (config: AxiosRequestConfig) => {
+
+    const headers = config.withCredentials ? {
+        //...config.headers,
+        Authorization: 'Bearer ' + getAuthData().access_token
+    } 
+    : config.headers;
+
+    return axios({ 
+        ...config, 
+        baseURL: BASE_URL, 
+        headers: headers
+    });
+};
 
 export const saveAuthData = (obj: LoginResponse) => {
     localStorage.setItem(tokenKey, JSON.stringify(obj));
-}
+};
 
 export const getAuthData = () => {
     const str = localStorage.getItem(tokenKey) ?? '{}';
     return JSON.parse(str) as LoginResponse;
-}
+};
