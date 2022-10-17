@@ -7,7 +7,7 @@ import { SpringPage } from 'types/vendor/spring';
 import { AxiosRequestConfig } from 'axios';
 
 import './styles.css';
-import { BASE_URL, requestBackend } from 'utils/requests';
+import { requestBackend } from 'utils/requests';
 import CardLoader from './CardLoader';
 
 const Catalog = () => {

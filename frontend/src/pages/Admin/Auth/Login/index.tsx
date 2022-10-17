@@ -1,7 +1,7 @@
 import ButtonIcon from 'components/ButtonIcon';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { requestBackendLogin, saveAuthData } from 'utils/requests';
 import './styles.css';
 
@@ -16,11 +16,14 @@ const Login = () => {
     const [hasError, setHasError] = useState<boolean>(false);
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
+    const history = useHistory();
+
     const onSubmit = (formData: FormData) => {
         requestBackendLogin(formData)
             .then(response => {
                 saveAuthData(response.data);
                 setHasError(false);
+                history.push('/admin');
             })
             .catch(error => setHasError(true));
     };

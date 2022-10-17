@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
+import history from './history';
 
 type LoginResponse = {
     access_token: string;
@@ -46,15 +47,15 @@ export const requestBackendLogin = (loginData: LoginData) => {
 export const requestBackend = (config: AxiosRequestConfig) => {
 
     const headers = config.withCredentials ? {
-        //...config.headers,
-        Authorization: 'Bearer ' + getAuthData().access_token
+        ...config.headers,
+        Authorization: 'Bearer ' + getAuthData().access_token,
     } 
     : config.headers;
 
     return axios({ 
         ...config, 
         baseURL: BASE_URL, 
-        headers: headers
+        headers
     });
 };
 
@@ -66,3 +67,27 @@ export const getAuthData = () => {
     const str = localStorage.getItem(tokenKey) ?? '{}';
     return JSON.parse(str) as LoginResponse;
 };
+
+// interceptors request (antes da requisão fazer algo)
+
+axios.interceptors.request.use((config) => {
+
+    return config;
+}, (error) => {
+
+    return Promise.reject(error);
+});
+
+// interceptors response (depois que vem a resposta fazer algo)
+
+axios.interceptors.response.use((response) => {
+
+    return response;
+}, (error) => {
+
+    if (error.response.status === 401 || error.response.status === 403) {
+        history.push('/admin/auth');
+    }
+    
+    return Promise.reject(error);
+});
