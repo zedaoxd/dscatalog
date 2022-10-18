@@ -24,7 +24,7 @@ public class CategoryService {
 
     @Transactional(readOnly = true)
     public Page<CategoryDTO> findAllPage(Pageable pageable) {
-        Page<Category> list =  repository.findAll(pageable);
+        Page<Category> list = repository.findAll(pageable);
         return list.map(CategoryDTO::new);
     }
 
