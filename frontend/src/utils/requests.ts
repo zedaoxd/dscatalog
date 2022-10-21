@@ -58,13 +58,12 @@ export const requestBackend = (config: AxiosRequestConfig) => {
     const headers = config.withCredentials ? {
         ...config.headers,
         Authorization: 'Bearer ' + getAuthData().access_token,
-    } 
-    : config.headers;
+    } : config.headers;
 
     return axios({ 
         ...config, 
         baseURL: BASE_URL, 
-        headers
+        headers: headers
     });
 };
 
