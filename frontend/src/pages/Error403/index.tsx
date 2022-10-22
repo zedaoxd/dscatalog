@@ -3,19 +3,17 @@ import './styles.css';
 
 const Error403 = () => {
   return (
-    <div className="home-container">
-      <div className="base-card home-card">
-        <div className="home-content-container error">
-          <div>
-            <h1>Acesso Negado!</h1>
-            <p>
-              Se você acha que isso é um erro, entre em contato com o administrador do sistema.
-            </p>
-          </div>
+    <div className="e-container">
+      <div>
+        <div className="e-content-container">
+          <h1 className="error">Acesso Negado!</h1>
+          <p>
+            Se você acha que isso é um erro, entre em contato com o administrador do sistema.
+          </p>
         </div>
-        <div className="home-image-container">
-          <Error403svg />
-        </div>
+      </div>
+      <div>
+        <Error403svg />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { hasAnyRoles, isAuthenticated, Role } from 'utils/requests';
+import { hasAnyRoles, isAuthenticated, Role } from 'utils/auth';
 
 type Props = {
   children: React.ReactNode;
@@ -24,7 +24,7 @@ const PrivateRoute = ({ children, path, roles = [] }: Props) => {
           <Redirect 
             to={{
               pathname: "/forbidden",
-              state: { from: location }
+              state: { from: location },
             }} 
           />
           // <Redirect to="/admin/products" />
