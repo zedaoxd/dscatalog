@@ -64,11 +64,15 @@ export default function Navbar() {
                 CATÁLOGO
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/admin" activeClassName="active">
-                ADMIN
-              </NavLink>
-            </li>
+            {
+              authContextData.authenticated &&
+              <li>
+                <NavLink to="/admin" activeClassName="active">
+                  ADMIN
+                </NavLink>
+              </li>
+            }
+            
           </ul>
         </div>
 
