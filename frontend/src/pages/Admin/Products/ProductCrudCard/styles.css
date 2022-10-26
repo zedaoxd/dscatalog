@@ -1,25 +1,30 @@
-.product-card {
+.product-crud-card {
     margin-bottom: 30px;
 }
 
-.card-top-container {
+.product-crud-card-top-container {
     text-align: center;
     padding: 16px 0;
     border-bottom: 1px solid #e1e1e1;
 }
 
-.card-top-container img {
+.product-crud-card-top-container img {
     width: 158px;
     height: 158px;
 }
 
-.card-bottom-container {
+.product-crud-card-bottom-container {
     text-align: left;
     padding: 15px 20px 30px 20px;
 }
 
-.card-bottom-container h6 {
+.product-crud-card-bottom-container h6 {
     color: #263238;
     font-size: 18px;
     font-weight: 700;
+}
+
+.product-crud-categories-container {
+    padding: 0 20px;
+    display: flex;
 }
