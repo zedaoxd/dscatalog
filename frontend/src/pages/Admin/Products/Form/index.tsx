@@ -22,12 +22,12 @@ export const Form = () => {
         ...formData,
         categories: [{ id: 1, name: '' }],
         imgUrl:
-          'https://www.amd.com/system/files/2022-09/1536834-amd-ryzen-7-7000-series-PIB-angle-1260x709.png',
+          'https://www.notebookcheck.info/fileadmin/Notebooks/News/_nc3/csm_Intel_Core_i7_13700K_header_0d95f164a0.png',
       },
       withCredentials: true,
     };
 
-    requestBackend(config).then((response) => console.log(response.data));
+    requestBackend(config).then(() => history.push('/admin/products'));
   };
 
   const handleCancel = () => {
