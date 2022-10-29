@@ -11,26 +11,29 @@ import { requestBackend } from 'utils/requests';
 import CardLoader from './CardLoader';
 
 const Catalog = () => {
-
   const [page, setPage] = useState<SpringPage<Product>>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const param : AxiosRequestConfig = {
+    getProducts(0);
+  }, []);
+
+  const getProducts = (pageNumber: number) => {
+    const param: AxiosRequestConfig = {
       method: 'GET',
       url: `/products`,
       params: {
-        page: 0,
+        page: pageNumber,
         size: 12,
-        sort: "name,desc"
+        sort: 'name,desc',
       },
     };
 
     setIsLoading(true);
     requestBackend(param)
-      .then(response => setPage(response.data))
-      .finally(() => setIsLoading(false))
-  }, []);
+      .then((response) => setPage(response.data))
+      .finally(() => setIsLoading(false));
+  };
 
   return (
     <div className="container my-4 catalog-container">
@@ -38,17 +41,24 @@ const Catalog = () => {
         <h1>Catálogo de produtos</h1>
       </div>
       <div className="row">
-        {isLoading ? <CardLoader /> : (
-          page?.content?.map(product => (
-          <div className="col-sm-6 col-lg-4 col-xl-3" key={product.id}>
-            <Link to={"/products/" + product.id}>
-              <ProductCard product={product}/>
-            </Link>
-          </div>
-        )))}
+        {isLoading ? (
+          <CardLoader />
+        ) : (
+          page?.content?.map((product) => (
+            <div className="col-sm-6 col-lg-4 col-xl-3" key={product.id}>
+              <Link to={'/products/' + product.id}>
+                <ProductCard product={product} />
+              </Link>
+            </div>
+          ))
+        )}
       </div>
       <div className="row">
-        <Pagination />
+        <Pagination
+          pageCount={page ? page.totalPages : 0}
+          range={3}
+          onChange={getProducts}
+        />
       </div>
     </div>
   );
