@@ -1,28 +1,50 @@
 import { AxiosRequestConfig } from 'axios';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Product } from 'types/product';
 import { requestBackend } from 'utils/requests';
 import './styles.css';
 
+type UrlParams = {
+  productId: string;
+};
+
 export const Form = () => {
   const history = useHistory();
+  const { productId } = useParams<UrlParams>();
+  const isEditing = productId !== 'create';
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<Product>();
+
+  useEffect(() => {
+    if (isEditing) {
+      requestBackend({ url: `/products/${productId}` }).then((response) => {
+        const product = response.data as Product;
+        setValue('name', product.name);
+        setValue('price', product.price);
+        setValue('description', product.description);
+        setValue('imgUrl', product.imgUrl);
+        setValue('categories', product.categories);
+      });
+    }
+  }, [isEditing, productId, setValue]);
 
   const onSubmit = (formData: Product) => {
     const config: AxiosRequestConfig = {
-      method: 'POST',
-      url: '/products',
+      method: isEditing ? 'PUT' : 'POST',
+      url: isEditing ? `/products/${productId}` : '/products',
       data: {
         ...formData,
-        categories: [{ id: 1, name: '' }],
-        imgUrl:
-          'https://www.notebookcheck.info/fileadmin/Notebooks/News/_nc3/csm_Intel_Core_i7_13700K_header_0d95f164a0.png',
+        categories: isEditing ? formData.categories : [{ id: 1, name: '' }],
+        imgUrl: isEditing
+          ? formData.imgUrl
+          : 'https://www.notebookcheck.info/fileadmin/Notebooks/News/_nc3/csm_Intel_Core_i7_13700K_header_0d95f164a0.png',
       },
       withCredentials: true,
     };
