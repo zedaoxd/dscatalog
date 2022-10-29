@@ -50,13 +50,7 @@ export const Form = () => {
     const config: AxiosRequestConfig = {
       method: isEditing ? 'PUT' : 'POST',
       url: isEditing ? `/products/${productId}` : '/products',
-      data: {
-        ...formData,
-        categories: isEditing ? formData.categories : [{ id: 1, name: '' }],
-        imgUrl: isEditing
-          ? formData.imgUrl
-          : 'https://www.notebookcheck.info/fileadmin/Notebooks/News/_nc3/csm_Intel_Core_i7_13700K_header_0d95f164a0.png',
-      },
+      data: formData,
       withCredentials: true,
     };
 
@@ -117,7 +111,7 @@ export const Form = () => {
                 )}
               </div>
 
-              <div>
+              <div className="margin-bottom-30">
                 <input
                   {...register('price', {
                     required: 'Campo obrigatório',
@@ -133,7 +127,30 @@ export const Form = () => {
                   {errors.price?.message}
                 </div>
               </div>
+
+              <div>
+                <input
+                  {...register('imgUrl', {
+                    required: 'Campo obrigatório',
+                    pattern: {
+                      message: 'Deve ser uma URL válida',
+                      value:
+                        /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi,
+                    },
+                  })}
+                  type="text"
+                  className={`form-control base-input ${
+                    errors.imgUrl && 'is-invalid'
+                  }`}
+                  placeholder="URL da imagem"
+                  name="imgUrl"
+                />
+                <div className="invalid-feedback d-block">
+                  {errors.imgUrl?.message}
+                </div>
+              </div>
             </div>
+
             <div className="col-lg-6">
               <div>
                 <textarea
