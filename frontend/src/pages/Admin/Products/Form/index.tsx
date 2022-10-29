@@ -1,8 +1,9 @@
 import { AxiosRequestConfig } from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
+import { Category } from 'types/category';
 import { Product } from 'types/product';
 import { requestBackend } from 'utils/requests';
 import './styles.css';
@@ -12,15 +13,11 @@ type UrlParams = {
 };
 
 export const Form = () => {
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
-
   const history = useHistory();
   const { productId } = useParams<UrlParams>();
   const isEditing = productId !== 'create';
+
+  const [selectCategories, setSelectCategories] = useState<Category[]>([]);
 
   const {
     register,
@@ -28,6 +25,12 @@ export const Form = () => {
     formState: { errors },
     setValue,
   } = useForm<Product>();
+
+  useEffect(() => {
+    requestBackend({ url: '/categories' }).then((response) =>
+      setSelectCategories(response.data.content)
+    );
+  }, []);
 
   useEffect(() => {
     if (isEditing) {
@@ -89,13 +92,18 @@ export const Form = () => {
 
               <div className="margin-bottom-30">
                 <Select
-                  options={options}
+                  options={selectCategories}
                   isMulti
                   classNamePrefix="product-crud-select"
+                  getOptionLabel={(category: Category) => category.name}
+                  getOptionValue={(category: Category) =>
+                    category.id.toString()
+                  }
+                  placeholder="Selecione as categorias"
                 />
               </div>
 
-              <div className="margin-bottom-30">
+              <div>
                 <input
                   {...register('price', {
                     required: 'Campo obrigatório',
@@ -111,10 +119,6 @@ export const Form = () => {
                   {errors.price?.message}
                 </div>
               </div>
-
-              {/* <div>
-                <input type="text" className="form-control base-input" />
-              </div> */}
             </div>
             <div className="col-lg-6">
               <div>
