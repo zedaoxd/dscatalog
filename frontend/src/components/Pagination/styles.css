@@ -35,6 +35,8 @@
 .arrow-next {
     color: #407BFF;    
     margin-left: 10px;
+    position: relative;
+    top: -5px;
 }
 
 .arrow-inactive {

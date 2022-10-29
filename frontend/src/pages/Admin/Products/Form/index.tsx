@@ -149,25 +149,6 @@ export const Form = () => {
                   onUploadSuccess={onUploadSuccess}
                   productImgUrl={productImgUrl}
                 />
-                {/* <input
-                  {...register('imgUrl', {
-                    required: 'Campo obrigatório',
-                    pattern: {
-                      message: 'Deve ser uma URL válida',
-                      value:
-                        /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi,
-                    },
-                  })}
-                  type="text"
-                  className={`form-control base-input ${
-                    errors.imgUrl && 'is-invalid'
-                  }`}
-                  placeholder="URL da imagem"
-                  name="imgUrl"
-                />
-                <div className="invalid-feedback d-block">
-                  {errors.imgUrl?.message}
-                </div> */}
               </div>
             </div>
 
