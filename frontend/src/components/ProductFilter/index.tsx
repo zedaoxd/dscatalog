@@ -36,7 +36,7 @@ export const ProductFilter = () => {
             placeholder="Nome do Produto"
             name="name"
           />
-          <button>
+          <button className="product-filter-button-seacrh-icon">
             <SearchIcon />
           </button>
         </div>
@@ -50,7 +50,7 @@ export const ProductFilter = () => {
                   {...field}
                   options={selectCategories}
                   isClearable
-                  classNamePrefix="product-crud-select"
+                  classNamePrefix="product-filter-select"
                   getOptionLabel={(category: Category) => category.name}
                   getOptionValue={(category: Category) =>
                     category.id.toString()
@@ -60,7 +60,9 @@ export const ProductFilter = () => {
               )}
             />
           </div>
-          <button className="btn btn-outline-secondary">LIMPAR</button>
+          <button className="btn btn-outline-secondary btn-product-filter-clear">
+            LIMPAR <span className="btn-product-filter-word"> FILTRO</span>
+          </button>
         </div>
       </form>
     </div>

@@ -7,6 +7,7 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 10px;
 }
 
 .product-filter-name-container input {
@@ -20,6 +21,52 @@
 }
 .product-filter-name-container input::placeholder {
     color: #9e9e9e;
+}
+
+.product-filter-button-seacrh-icon {
+    border: none;
+    background-color: unset;
+}
+
+.product-filter-bottom-container {
+    display: flex;
+}
+
+.product-filter-category-container {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.btn-product-filter-word {
+    display: none;
+}
+
+.btn-product-filter-clear {
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.product-filter-select__control {
+    border: none !important;
+    border-bottom: 1px solid #e1e1e1 !important;
+    font-size: 1em;
+    letter-spacing: -0.015em;
+    color: #263238;
+    background-color: #fff !important;
+}
+
+.product-filter-select__placeholder {
+    color: #9e9e9e !important;
+}
+
+.product-filter-select__indicator-separator {
+    display: none;
+}
+
+@media (min-width: 576px) {
+    .btn-product-filter-word {
+        display: unset;
+    }
 }
 
 @media (min-width: 768px) {
