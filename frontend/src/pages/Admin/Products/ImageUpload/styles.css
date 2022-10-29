@@ -1,0 +1,37 @@
+.upload-button-container label {
+    background-color: #9e9e9e;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: -0.015em;
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
+.upload-text-helper {
+    font-size: 14px;
+    letter-spacing: -0.015em;
+}
+
+.upload-placeholder .upload-progress-container{
+    position: relative;
+    bottom: 20px;
+    left: 10px;
+    background-color: #e1e1e1;
+    height: 10px;
+    width: 175px;
+    border-radius: 10px;
+}
+
+.upload-placeholder .upload-progress {
+    background-color: #407bff;
+    border-radius: 10px;
+    height: 10px;
+}
+
+.upload-placeholder .uploaded-image {
+    width: 200px;
+    height: 200px;
+}

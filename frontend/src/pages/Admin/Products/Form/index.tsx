@@ -7,6 +7,7 @@ import Select from 'react-select';
 import { Category } from 'types/category';
 import { Product } from 'types/product';
 import { requestBackend } from 'utils/requests';
+import { ImageUpload } from '../ImageUpload';
 import './styles.css';
 
 type UrlParams = {
@@ -19,6 +20,8 @@ export const Form = () => {
   const isEditing = productId !== 'create';
 
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
+  const [uploadImgUrl, setUploadImgUrl] = useState<string>('');
+  const [productImgUrl, setProductImgUrl] = useState<string>('');
 
   const {
     register,
@@ -41,8 +44,8 @@ export const Form = () => {
         setValue('name', product.name);
         setValue('price', product.price);
         setValue('description', product.description);
-        setValue('imgUrl', product.imgUrl);
         setValue('categories', product.categories);
+        setProductImgUrl(response.data.imgUrl);
       });
     }
   }, [isEditing, productId, setValue]);
@@ -54,11 +57,16 @@ export const Form = () => {
       data: {
         ...formData,
         price: Number(formData.price.toString().replace(',', '.')),
+        imgUrl: uploadImgUrl || productImgUrl,
       },
       withCredentials: true,
     };
 
     requestBackend(config).then(() => history.push('/admin/products'));
+  };
+
+  const onUploadSuccess = (imgUrl: string) => {
+    setUploadImgUrl(imgUrl);
   };
 
   const handleCancel = () => {
@@ -137,7 +145,11 @@ export const Form = () => {
               </div>
 
               <div>
-                <input
+                <ImageUpload
+                  onUploadSuccess={onUploadSuccess}
+                  productImgUrl={productImgUrl}
+                />
+                {/* <input
                   {...register('imgUrl', {
                     required: 'Campo obrigatório',
                     pattern: {
@@ -155,7 +167,7 @@ export const Form = () => {
                 />
                 <div className="invalid-feedback d-block">
                   {errors.imgUrl?.message}
-                </div>
+                </div> */}
               </div>
             </div>
 

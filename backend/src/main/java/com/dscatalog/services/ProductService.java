@@ -1,6 +1,7 @@
 package com.dscatalog.services;
 
 import com.dscatalog.dto.ProductDTO;
+import com.dscatalog.dto.UriDTO;
 import com.dscatalog.entities.Category;
 import com.dscatalog.entities.Product;
 import com.dscatalog.repositories.CategoryRepository;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -27,6 +29,9 @@ public class ProductService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private S3Service s3Service;
 
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAllPage(Pageable pageable, Long categoryId, String name) {
@@ -71,6 +76,12 @@ public class ProductService {
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Integrity violation");
         }
+    }
+
+
+    public UriDTO uploadFile(MultipartFile file) {
+        var url = s3Service.uploadFile(file);
+        return new UriDTO(url.toString());
     }
 
     private void copyDtoToEntity(ProductDTO dto, Product entity) {
