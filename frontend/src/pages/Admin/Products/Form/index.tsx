@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
+import CurrencyInput from 'react-currency-input-field';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
@@ -50,7 +51,10 @@ export const Form = () => {
     const config: AxiosRequestConfig = {
       method: isEditing ? 'PUT' : 'POST',
       url: isEditing ? `/products/${productId}` : '/products',
-      data: formData,
+      data: {
+        ...formData,
+        price: Number(formData.price.toString().replace(',', '.')),
+      },
       withCredentials: true,
     };
 
@@ -112,16 +116,20 @@ export const Form = () => {
               </div>
 
               <div className="margin-bottom-30">
-                <input
-                  {...register('price', {
-                    required: 'Campo obrigatório',
-                  })}
-                  type="text"
-                  className={`form-control base-input ${
-                    errors.price && 'is-invalid'
-                  }`}
-                  placeholder="Preço"
+                <Controller
                   name="price"
+                  rules={{ required: true }}
+                  control={control}
+                  render={({ field }) => (
+                    <CurrencyInput
+                      placeholder="Preço"
+                      className={`form-control base-input ${
+                        errors.price && 'is-invalid'
+                      }`}
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    />
+                  )}
                 />
                 <div className="invalid-feedback d-block">
                   {errors.price?.message}
@@ -135,7 +143,7 @@ export const Form = () => {
                     pattern: {
                       message: 'Deve ser uma URL válida',
                       value:
-                        /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi,
+                        /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi,
                     },
                   })}
                   type="text"
