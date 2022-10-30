@@ -58,6 +58,7 @@ const Catalog = () => {
           pageCount={page ? page.totalPages : 0}
           range={3}
           onChange={getProducts}
+          forcePage={page?.number}
         />
       </div>
     </div>
