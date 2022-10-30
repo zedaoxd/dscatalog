@@ -8,6 +8,7 @@ import { Category } from 'types/category';
 import { Product } from 'types/product';
 import { requestBackend } from 'utils/requests';
 import { ImageUpload } from '../ImageUpload';
+import { toast } from 'react-toastify';
 import './styles.css';
 
 type UrlParams = {
@@ -62,7 +63,14 @@ export const Form = () => {
       withCredentials: true,
     };
 
-    requestBackend(config).then(() => history.push('/admin/products'));
+    requestBackend(config)
+      .then(() => {
+        toast.info('Produto salvo com sucesso!');
+        history.push('/admin/products');
+      })
+      .catch((e) => {
+        toast.error('Erro salvar produto');
+      });
   };
 
   const onUploadSuccess = (imgUrl: string) => {

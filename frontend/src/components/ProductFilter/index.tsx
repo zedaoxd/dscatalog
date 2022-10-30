@@ -2,7 +2,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { Category } from 'types/category';
 import { ReactComponent as SearchIcon } from 'assets/images/search-icon.svg';
 import './styles.css';
-import Select, { SingleValue } from 'react-select';
+import Select from 'react-select';
 import { useEffect, useState } from 'react';
 import { requestBackend } from 'utils/requests';
 
