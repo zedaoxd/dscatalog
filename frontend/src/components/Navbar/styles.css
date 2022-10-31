@@ -3,7 +3,8 @@
     min-height: 70px;
 }
 
-.nav-logo-text, .nav-logo-text:hover {
+.nav-logo-text,
+.nav-logo-text:hover {
     color: #fff;
 }
 
@@ -11,7 +12,8 @@
     display: flex;
     font-size: 18px;
     width: 380px;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    margin: 0 auto;
 }
 
 .main-menu a {
