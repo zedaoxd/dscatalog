@@ -34,6 +34,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private JwtTokenStore tokenStore;
 
     private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**" };
+    private static final String[] SWAGGER = {
+            "/v2/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**" };
     private static final String[] OPERATOR_OR_ADMIN = { "/products/**", "/categories/**" };
     private static final String[] ADMIN = { "/users/**" };
 
@@ -52,6 +59,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(PUBLIC).permitAll()
+                .antMatchers(SWAGGER).permitAll()
                 .antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).permitAll()
                 .antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN")
                 .antMatchers(ADMIN).hasRole("ADMIN")
