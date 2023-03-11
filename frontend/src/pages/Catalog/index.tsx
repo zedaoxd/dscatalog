@@ -4,10 +4,9 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
 import './styles.css';
-import { requestBackend } from 'utils/requests';
 import CardLoader from './CardLoader';
 
 const Catalog = () => {
@@ -33,23 +32,6 @@ const Catalog = () => {
       .then((response) => setPage(response.data))
       .finally(() => setIsLoading(false));
   };
-
-  // const getProducts = (pageNumber: number) => {
-  //   const param: AxiosRequestConfig = {
-  //     method: 'GET',
-  //     url: `/products`,
-  //     params: {
-  //       page: pageNumber,
-  //       size: 12,
-  //       sort: 'name,desc',
-  //     },
-  //   };
-
-  //   setIsLoading(true);
-  //   requestBackend(param)
-  //     .then((response) => setPage(response.data))
-  //     .finally(() => setIsLoading(false));
-  // };
 
   return (
     <div className="container my-4 catalog-container">
