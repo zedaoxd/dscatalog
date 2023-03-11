@@ -3,7 +3,7 @@ import qs from 'qs';
 import history from './history';
 import { getAuthData } from './storage';
 
-export const BASE_URL = 'https://dscatalog-production-1c02.up.railway.app';
+//export const BASE_URL = 'https://dscatalog-production-1c02.up.railway.app';
 //process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? 'dscatalog';
@@ -44,7 +44,7 @@ export const requestBackend = (config: AxiosRequestConfig) => {
 
   return axios({
     ...config,
-    baseURL: BASE_URL,
+    baseURL: 'https://dscatalog-production-1c02.up.railway.app',
     headers: headers,
   });
 };
